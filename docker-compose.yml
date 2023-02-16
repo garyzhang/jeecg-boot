@@ -7,7 +7,7 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_ROOT_HOST: '%'
       TZ: Asia/Shanghai
-    restart: always
+#    restart: always
     container_name: jeecg-boot-mysql
     image: jeecg-boot-mysql
     command:
@@ -19,19 +19,30 @@ services:
       --default-authentication-plugin=caching_sha2_password
     ports:
       - 3306:3306
+    networks:
+      - jeecg-network
 
   jeecg-boot-redis:
     image: redis:5.0
     ports:
-      - 6379:6379
-    restart: always
+      - 6380:6379
+#    restart: always
     hostname: jeecg-boot-redis
     container_name: jeecg-boot-redis
+    networks:
+      - jeecg-network
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8082:8080
+    networks:
+      - jeecg-network
 
   jeecg-boot-system:
     build:
       context: ./jeecg-module-system/jeecg-system-start
-    restart: on-failure
+#    restart: on-failure
     depends_on:
       - jeecg-boot-mysql
       - jeecg-boot-redis
@@ -39,4 +50,10 @@ services:
     image: jeecg-boot-system
     hostname: jeecg-boot-system
     ports:
-      - 8080:8080
+      - 8083:8080
+    networks:
+      - jeecg-network
+
+networks:
+  jeecg-network:
+    driver: bridge
