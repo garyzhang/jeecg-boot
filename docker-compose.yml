@@ -51,6 +51,8 @@ services:
     hostname: jeecg-boot-system
     ports:
       - 8083:8080
+    volumes:
+      - ./codegen:/jeecg-boot/codegen
     networks:
       - jeecg-network
 

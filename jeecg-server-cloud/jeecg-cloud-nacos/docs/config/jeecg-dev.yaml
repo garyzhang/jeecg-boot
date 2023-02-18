@@ -34,7 +34,7 @@ spring:
     database: 0
     host: jeecg-boot-redis
     password:
-    port: 6379
+    port: 6380
   rabbitmq:
     host: jeecg-boot-rabbitmq
     username: guest
@@ -96,7 +96,7 @@ jeecg:
     logPath: logs/jeecg/job/jobhandler/
     logRetentionDays: 30
   redisson:
-    address: jeecg-boot-redis:6379
+    address: jeecg-boot-redis:6380
     password:
     type: STANDALONE
     enabled: true
